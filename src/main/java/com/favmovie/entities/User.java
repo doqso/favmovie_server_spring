@@ -9,7 +9,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(unique = true)
+    // add identifier to the column
+    @Column(nullable = false, unique = true)
     private String username;
+    @Column(nullable = false)
     private String password;
 }

@@ -1,6 +1,6 @@
 package com.favmovie.controller;
 
-import com.favmovie.entities.MoviesListPage;
+import com.favmovie.models.MoviesListPage;
 import com.favmovie.entities.Genre;
 import com.favmovie.util.ExternalApiUtil;
 import org.springframework.web.bind.annotation.GetMapping;

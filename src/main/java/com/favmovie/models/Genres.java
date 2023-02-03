@@ -1,5 +1,7 @@
-package com.favmovie.entities;
+package com.favmovie.models;
 
+
+import com.favmovie.entities.Genre;
 
 import java.util.List;
 

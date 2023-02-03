@@ -2,8 +2,8 @@ package com.favmovie.util;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.favmovie.entities.MoviesListPage;
-import com.favmovie.entities.Genres;
+import com.favmovie.models.MoviesListPage;
+import com.favmovie.models.Genres;
 import com.favmovie.entities.Movie;
 import com.favmovie.entities.Genre;
 
@@ -24,7 +24,7 @@ public class ExternalApiUtil {
 
     public static List<Genre> getGenres() throws IOException {
         String url = "https://api.themoviedb.org/3/genre/movie/list?api_key=" + API_KEY + "&language=es-ES";
-        Genres genres = (Genres) makeRequest(url, Genres.class);
+        Genres genres = makeRequest(url, Genres.class);
         return genres.getGenres();
     }
 
@@ -32,17 +32,17 @@ public class ExternalApiUtil {
         String url = "https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY +
                 "&language=es-ES&sort_by=popularity.desc&include_adult=false&include_video=false&" +
                 "page=1&with_genres=" + genreId;
-        return (MoviesListPage) makeRequest(url, MoviesListPage.class);
+        return makeRequest(url, MoviesListPage.class);
     }
 
     public static MoviesListPage getTrendingMovies() throws IOException {
         String url = "https://api.themoviedb.org/3/trending/movie/day?api_key=" + API_KEY;
-        return (MoviesListPage) makeRequest(url, MoviesListPage.class);
+        return makeRequest(url, MoviesListPage.class);
     }
 
     public static Movie getMovieById(int movieId) throws IOException {
         String url = "https://api.themoviedb.org/3/movie/" + movieId + "?api_key=" + API_KEY + "&language=es-ES";
-        return (Movie) makeRequest(url, Movie.class);
+        return makeRequest(url, Movie.class);
 
     }
 
@@ -55,7 +55,7 @@ public class ExternalApiUtil {
      *                    (e.g. Movie.class, Genres.class, DiscoverMoviesPage.class)
      * @return response as object
      */
-    private static <T> Object makeRequest(String url, Class<T> entityClass) throws IOException {
+    private static <T> T makeRequest(String url, Class<T> entityClass) throws IOException {
         // make request
         URL obj = new URL(url);
         HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
