@@ -2,10 +2,10 @@ package com.favmovie.util;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.favmovie.models.MoviesListPage;
-import com.favmovie.models.Genres;
-import com.favmovie.entities.Movie;
 import com.favmovie.entities.Genre;
+import com.favmovie.entities.Movie;
+import com.favmovie.models.Genres;
+import com.favmovie.models.MoviesListPage;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
@@ -28,10 +28,10 @@ public class ExternalApiUtil {
         return genres.getGenres();
     }
 
-    public static MoviesListPage getMoviesByGenre(int genreId) throws IOException {
+    public static MoviesListPage getMoviesByGenre(int genreId, int page) throws IOException {
         String url = "https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY +
                 "&language=es-ES&sort_by=popularity.desc&include_adult=false&include_video=false&" +
-                "page=1&with_genres=" + genreId;
+                "page=" + page + "&with_genres=" + genreId;
         return makeRequest(url, MoviesListPage.class);
     }
 

@@ -18,7 +18,7 @@ import java.util.List;
 public class Movie {
     @Id
     @Column(nullable = false)
-    private int id;
+    private Long id;
     @Column(nullable = false)
     private String title;
     @Column(nullable = false)
@@ -27,14 +27,14 @@ public class Movie {
     @Column(nullable = false)
     private LocalDate release_date;
     @Column(nullable = false)
-    private int budget;
+    private Integer budget;
     @Column(nullable = false)
-    private int revenue;
+    private Integer revenue;
     @Column(nullable = false)
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "movie_genre",
-            joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Genre> genres;
 
+    public void setRelease_date(String release_date) {
+        this.release_date = LocalDate.parse(release_date);
+    }
 }

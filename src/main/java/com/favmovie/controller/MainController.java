@@ -1,9 +1,13 @@
 package com.favmovie.controller;
 
+import com.favmovie.entities.Movie;
+import com.favmovie.entities.User;
 import com.favmovie.models.MoviesListPage;
 import com.favmovie.entities.Genre;
+import com.favmovie.service.DatabaseService;
 import com.favmovie.util.ExternalApiUtil;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,21 +17,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class MainController {
+    DatabaseService databaseService;
 
-    @GetMapping("/genres")
-    public List<Genre> index() throws IOException {
-        return ExternalApiUtil.getGenres();
+    public MainController(DatabaseService databaseService) {
+        this.databaseService = databaseService;
     }
 
-    @GetMapping("/movies")
-    public MoviesListPage movies() throws IOException {
-        return ExternalApiUtil.getMoviesByGenre(28);
-    }
-//
-//    @GetMapping("/movies/{id}")
-//    public String moviesById(@PathVariable("id") int id) throws IOException {
-//        return TmdbApiUtil.getMovieById(id);
+//    @GetMapping
+//    public User index() throws IOException {
+//        databaseService.addMovieToFavorite(movie, 1L);
+//        return databaseService.getUserById(1L);
 //    }
-
-    //xFJHb43ZAnnuiDztxZYsmyopweb.jpg
 }
