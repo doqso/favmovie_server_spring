@@ -1,6 +1,5 @@
 package com.favmovie.controller;
 
-import com.favmovie.entities.Movie;
 import com.favmovie.service.DatabaseService;
 import com.favmovie.util.ExternalApiUtil;
 import org.springframework.stereotype.Controller;
