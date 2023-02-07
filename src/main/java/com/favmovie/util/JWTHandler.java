@@ -1,4 +1,4 @@
-package com.favmovie.service;
+package com.favmovie.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

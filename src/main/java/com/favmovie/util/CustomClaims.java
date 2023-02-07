@@ -1,4 +1,4 @@
-package com.favmovie.service;
+package com.favmovie.util;
 
 public enum CustomClaims {
     USER_NAME("username"),

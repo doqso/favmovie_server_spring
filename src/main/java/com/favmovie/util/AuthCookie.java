@@ -1,4 +1,4 @@
-package com.favmovie.service;
+package com.favmovie.util;
 
 import jakarta.servlet.http.Cookie;
 

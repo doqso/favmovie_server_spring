@@ -2,9 +2,7 @@ package com.favmovie.util;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.favmovie.entities.Genre;
 import com.favmovie.entities.Movie;
-import com.favmovie.models.Genres;
 import com.favmovie.models.MoviesListPage;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -12,7 +10,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.net.URL;
-import java.util.List;
 
 public class ExternalApiUtil {
     private static final String API_KEY = "ae569d541647c6f761dbc54697fd6097";
@@ -20,12 +17,6 @@ public class ExternalApiUtil {
     public static final String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
     private ExternalApiUtil() {
-    }
-
-    public static List<Genre> getGenres() throws IOException {
-        String url = "https://api.themoviedb.org/3/genre/movie/list?api_key=" + API_KEY + "&language=es-ES";
-        Genres genres = makeRequest(url, Genres.class);
-        return genres.getGenres();
     }
 
     public static MoviesListPage getMoviesByGenre(int genreId, int page) throws IOException {
@@ -40,7 +31,7 @@ public class ExternalApiUtil {
         return makeRequest(url, MoviesListPage.class);
     }
 
-    public static Movie getMovieById(int movieId) throws IOException {
+    public static Movie getMovieById(long movieId) throws IOException {
         String url = "https://api.themoviedb.org/3/movie/" + movieId + "?api_key=" + API_KEY + "&language=es-ES";
         return makeRequest(url, Movie.class);
 

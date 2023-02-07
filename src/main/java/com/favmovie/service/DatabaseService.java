@@ -1,51 +1,57 @@
 package com.favmovie.service;
 
+import com.favmovie.entities.Genre;
 import com.favmovie.entities.Movie;
+import com.favmovie.entities.Status;
 import com.favmovie.entities.User;
+import com.favmovie.repository.GenreRepository;
 import com.favmovie.repository.MoviesRepository;
+import com.favmovie.repository.StatusRepository;
 import com.favmovie.repository.UserRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class DatabaseService {
     MoviesRepository moviesRepository;
     UserRepository userRepository;
+    GenreRepository genreRepository;
+    StatusRepository statusRepository;
 
-    public DatabaseService(MoviesRepository moviesRepository, UserRepository userRepository) {
+    public DatabaseService(MoviesRepository moviesRepository, UserRepository userRepository, GenreRepository genreRepository, StatusRepository statusRepository) {
         this.moviesRepository = moviesRepository;
         this.userRepository = userRepository;
+        this.genreRepository = genreRepository;
+        this.statusRepository = statusRepository;
+    }
+
+    public List<Genre> getAllGenres() {
+        return genreRepository.findAll();
     }
 
     public User getUserById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
 
-    /**
-     * Agrega una película a favoritos y la guarda en la base de datos
-     * @param movie Película a agregar
-     * @param userId Id del usuario
-     */
-    public void addMovieToFavorite(Movie movie, Long userId) {
-        // primero guarda la pelicula en la base de datos
-        moviesRepository.save(movie);
-        // posteriormente crea la relacion entre el usuario y la pelicula en la tabla de favoritos
-        moviesRepository.addToFavorites(movie.getId(), userId);
+    public Movie getMovieById(Long id) {
+        return moviesRepository.findById(id).orElse(null);
     }
 
-    public void removeMovieFromFavorite(Movie movie, Long userId) {
-        // primero elimina la relacion entre el usuario y la pelicula en la tabla de favoritos
-        moviesRepository.removeFromFavorites(movie.getId(), userId);
-        // posteriormente elimina la pelicula de la base de datos
-        moviesRepository.deleteById(movie.getId());
+    public List<Status> getFavoritesByUserId(Long userId) {
+        return statusRepository.findAllByIsFavoriteIsTrueAndUserId(userId);
     }
 
-    public void addMovieToWatchlist(Movie movie, Long userId) {
-        moviesRepository.save(movie);
-        moviesRepository.addToWatchlist(movie.getId(), userId);
+    public List<Status> getWatchlistByUserId(Long userId) {
+        return statusRepository.findAllByIsWatchlistIsTrueAndUserId(userId);
+    }
+    public Status getMovieStatus(Long movieId, Long userId) {
+        return statusRepository.findByUserIdAndMovieId(userId, movieId);
     }
 
-    public void removeMovieFromWatchlist(Movie movie, Long userId) {
-        moviesRepository.removeFromWatchlist(movie.getId(), userId);
-        moviesRepository.deleteById(movie.getId());
+    public void updateupdateMovieStatusForUser(Status status) {
+        boolean movieIsInDatabase = moviesRepository.existsById(status.getMovie().getId());
+        if (!movieIsInDatabase) moviesRepository.save(status.getMovie());
+        statusRepository.save(status);
     }
 }

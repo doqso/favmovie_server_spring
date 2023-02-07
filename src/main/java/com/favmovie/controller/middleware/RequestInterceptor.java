@@ -32,7 +32,8 @@ public class RequestInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // Aquí se implementan los middlewares
-        return Middleware.checkAuthenticationCookie(request, response);
+//        return Middleware.checkAuthenticationCookie(request, response);
+        return true;
     }
 }
 
@@ -83,6 +84,6 @@ class RequestInterceptorAppConfig extends WebMvcConfigurationSupport {
     @Override
     protected void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(defaultInterceptor)
-                .excludePathPatterns("/error", "/favicon.ico", "/login", "/registro");
+                .excludePathPatterns("/", "/error", "/favicon.ico", "/login", "/registro");
     }
 }

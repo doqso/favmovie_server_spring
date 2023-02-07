@@ -22,15 +22,4 @@ public class User {
     private String username;
     @Column(nullable = false)
     private String password;
-    @ManyToMany
-    @JoinTable(name = "favorites",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id"))
-    private List<Movie> favorites;
-
-    @ManyToMany
-    @JoinTable(name = "watchlist",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id"))
-    private List<Movie> watchlist;
 }
