@@ -3,7 +3,7 @@ package com.favmovie.util;
 import jakarta.servlet.http.Cookie;
 
 public class AuthCookie extends Cookie {
-    public static final String NAME = "Authorization";
+    public static final String NAME = "apiToken";
     /**
      * Constructs a cookie with a specified NAME and token.
      * <p>

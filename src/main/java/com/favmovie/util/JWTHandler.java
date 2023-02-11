@@ -36,15 +36,10 @@ public class JWTHandler {
         }
     }
 
-    public static String getCifFromToken(String token) {
-        return JWT.decode(token).getClaim(CustomClaims.USER_CIF.getValue()).asString();
-    }
-
-    public static String createToken(String username, String role, String cif) throws NoSuchAlgorithmException {
+    public static String createToken(Long id, String username) throws NoSuchAlgorithmException {
         return JWT.create().withIssuer("auth0")
+                .withClaim(CustomClaims.USER_ID.getValue(), id)
                 .withClaim(CustomClaims.USER_NAME.getValue(), username)
-                .withClaim(CustomClaims.USER_ROLE.getValue(), role)
-                .withClaim(CustomClaims.USER_CIF.getValue(), cif)
                 .sign(getAlgorithm());
     }
 }

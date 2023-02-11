@@ -11,10 +11,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 /**
  * Clase RequestInterceptor
  * <p>
- * Esta clase es una implementación de HandlerInterceptor y representa un interceptor de solicitudes
- * para ser utilizado en la aplicación.
+ * Esta clase se utilizará para interceptar las peticiones a la aplicación
+ * antes de ser procesada por el controlador.
  *
- * @Component - Anotación utilizada para indicar que la clase es un componente de la aplicación.
  */
 @Component
 public class RequestInterceptor implements HandlerInterceptor {
@@ -22,26 +21,18 @@ public class RequestInterceptor implements HandlerInterceptor {
      * Método preHandle
      * <p>
      * Este método es llamado antes de manejar una solicitud y se utiliza para implementar middlewares.
-     *
-     * @param request  - La solicitud HttpServlet recibida.
-     * @param response - La respuesta HttpServlet a ser enviada.
-     * @param handler  - El objeto encargado de manejar la solicitud.
-     * @return un booleano que indica si se debe continuar con el manejo de la solicitud o no.
-     * @throws Exception - En caso de ocurrir un error durante la ejecución del método.
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // Aquí se implementan los middlewares
-//        return Middleware.checkAuthenticationCookie(request, response);
-        return true;
+        return Middleware.checkAuthenticationCookie(request, response);
     }
 }
 
 /**
  * Clase RequestInterceptorAppConfig
  * <p>
- * Esta clase es una implementación de WebMvcConfigurationSupport y representa la configuración
- * para el uso del interceptor RequestInterceptor en la aplicación.
+ * Esta clase representa la configuración para el uso del interceptor RequestInterceptor en la aplicación.
  */
 @Component
 class RequestInterceptorAppConfig extends WebMvcConfigurationSupport {
@@ -50,7 +41,7 @@ class RequestInterceptorAppConfig extends WebMvcConfigurationSupport {
     /**
      * Constructor
      * <p>
-     * Este constructor inicializa el interceptor por defecto.
+     * inicializa el interceptor por defecto.
      *
      * @param defaultInterceptor - El interceptor por defecto.
      */
@@ -62,7 +53,7 @@ class RequestInterceptorAppConfig extends WebMvcConfigurationSupport {
      * Método addResourceHandlers
      * <p>
      * Este método se utiliza para agregar manejadores de recursos en la aplicación.
-     * Sin este método, a los archivos estáticos no se pueden acceder.
+     * Sin este método no se pueden acceder a los archivos estáticos.
      *
      * @param registry - El registro de manejadores de recursos.
      */

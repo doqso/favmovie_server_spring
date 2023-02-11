@@ -1,10 +1,8 @@
 package com.favmovie.util;
 
 public enum CustomClaims {
-    USER_NAME("username"),
-    USER_ROLE("role"),
-    USER_CIF("cif");
-
+    USER_ID("id"),
+    USER_NAME("username");
     private final String claim;
 
     CustomClaims(String claim) {

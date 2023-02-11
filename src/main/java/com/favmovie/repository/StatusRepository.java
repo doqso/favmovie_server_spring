@@ -13,7 +13,7 @@ public interface StatusRepository extends JpaRepository<Status, Long> {
 
     List<Status> findAllByIsWatchlistIsTrueAndUserId(Long userId);
 
-    Long countAllByMovie(Movie movie);
+    Long countAllByMovieId(Long movieId);
 
     void deleteByMovieId(Long movieId);
 

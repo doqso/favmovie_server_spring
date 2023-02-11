@@ -34,6 +34,10 @@ public class DatabaseService {
         return userRepository.findById(id).orElse(null);
     }
 
+    public User getUserByUsernameAndPassword(String username, String password) {
+        return userRepository.findByUsernameAndPassword(username, password);
+    }
+
     public Movie getMovieById(Long id) {
         return moviesRepository.findById(id).orElse(null);
     }
